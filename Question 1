@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>HTML Table</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>City</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody id="dynamic">
+
+        </tbody>
+
+    </table>
+
+    <button onclick="addRowBottom();">Add row to bottom</button>
+    <button onclick="addRowTop();">Add row to top</button>
+
+
+    <script>
+        const table = document.getElementById('dynamic');
+        let data = []
+
+        let count = data.length > 0 ? data.length : 5
+        for (let i = 1; i <= count; i++) {
+            data.push(`<tr>
+    <td class="sno">${i}</td>
+    <td>Andrew ${i}</td>
+    <td>Maria Anders ${i}</td>
+     <td>Alfreds Futterkiste ${i}</td>
+    <td>Germany ${i}</td>
+  </tr>`)
+        }
+
+
+        table.innerHTML = data.join(" ")
+
+        function addRowBottom() {
+            data.push(`<tr>
+    <td class="sno">${data.length + 1}</td>
+    <td>Fname ${(Math.random() + 1).toString(36).substring(7)}</td>
+     <td>Lname ${(Math.random() + 1).toString(36).substring(7)}</td>
+    <td>City ${(Math.random() + 1).toString(36).substring(7)}</td>
+    <td>Country ${(Math.random() + 1).toString(36).substring(7)}</td>
+  </tr>`)
+            fetchData()
+            // table.innerHTML= data.join(" ")
+        }
+
+        function addRowTop() {
+
+            data.unshift(`<tr>
+    <td class="sno">${data.length + 1}</td>
+    <td>Fname ${(Math.random() + 1).toString(36).substring(7)}</td>
+     <td>Lname ${(Math.random() + 1).toString(36).substring(7)}</td>
+    <td>City ${(Math.random() + 1).toString(36).substring(7)}</td>
+    <td>Country ${(Math.random() + 1).toString(36).substring(7)}</td>
+  </tr>`)
+            fetchData()
+            // table.innerHTML= data.join(" ")
+
+        }
+
+        function fetchData() {
+            let newdata = []
+            for (let i = 0; i < data.length; i++) {
+
+                // console.log(data[i]?.replace(/<[0-9]>/,i))
+                try {
+                    // let mydata =JSON.parse(JSON.stringify(data[i]))
+                    let temp = data[i]?.replace(/>[0-9]*</g, `>${i + 1}<`)
+                    
+                    newdata.push(temp)
+                }
+                catch (e) {
+                    console.log(e)
+                }
+
+            }
+            
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
